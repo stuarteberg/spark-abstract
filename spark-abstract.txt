@@ -1,0 +1,20 @@
+The emerging field of connectomics aims to unlock the mysteries of brain by understanding the connectivity between neurons.
+To extract this connectivty, we acquire thousands of electron microscopy (EM) images with nanometer resolution, which reveals neuronal shapes and their connections via synapses.
+
+However, acquiring the large image data and the subsequent extraction of connectivity information is time consuming.
+Even studying the brains of small organisms like fruit flies requires terabytes of image data and years of effort entailing manually examining images and tracing neural connections.
+
+
+To reduce the time-consuming manual effort required to extract neural connectivity, we apply cutting-edge image segmentation algorithms to automatically segment neurons from the EM dataset.
+
+In particular, we propose a novel strategy to segment large neurons that exceed the capacity of a single machine, while being robust to potential segmentation errors that arise from data anomalies and regions with little representation in the training data that likely occur in a large dataset.
+
+To process a very large dataset, we implement a Spark application that runs batch segmentation, at scale, on several overlapping subvolumes and implements a global algorithm for stitching these subvolumes together.
+We also implement functionality for analyzing the quality of this segmentation at scale.
+Our results correctly segment significant portions of many neurons spanning a large dataset.
+
+Our implementation exposes flexible segmentation configuration and supports a plugin-architecture for custom contributions to parts of the segmentation workflow.
+Other key aspects of our solution include
+a) fast compression and serialization of large numpy datastructures,
+b) rollback mechanisms to enable mid-application recovery needed for long-running Spark applications,
+and 3) a library for reading/writing data through the image-oriented, versioned data service called DVID. 
